@@ -25,3 +25,8 @@ dist-ssr
 server/src/**/*.js
 server/src/**/*.d.ts
 server/src/**/*.map
+mcp/dist
+mcp/src/**/*.js
+mcp/src/**/*.d.ts
+mcp/src/**/*.map
+mcp/src/**/*.d.ts.map
