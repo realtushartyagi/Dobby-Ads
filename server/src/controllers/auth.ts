@@ -24,6 +24,7 @@ export const signup = async (req: Request, res: Response) => {
 
     res.status(201).json({ user: { id: user._id, username: user.username, email: user.email }, token });
   } catch (err: any) {
+    console.error('Signup error:', err);
     res.status(500).json({ message: err.message });
   }
 };
@@ -50,6 +51,7 @@ export const login = async (req: Request, res: Response) => {
 
     res.json({ user: { id: user._id, username: user.username, email: user.email }, token });
   } catch (err: any) {
+    console.error('Login error:', err);
     res.status(500).json({ message: err.message });
   }
 };
@@ -60,6 +62,7 @@ export const getProfile = async (req: any, res: Response) => {
     if (!user) return res.status(404).json({ message: 'User not found' });
     res.json(user);
   } catch (err: any) {
+    console.error('GetProfile error:', err);
     res.status(500).json({ message: err.message });
   }
 };

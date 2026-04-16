@@ -18,8 +18,9 @@ export const uploadImage = async (req: any, res: Response) => {
     }
 
     // Determine URL and Cloudinary ID
-    const imageUrl = req.file.path || req.file.secure_url || `${req.protocol}://${req.get('host')}/uploads/${req.file.filename}`;
-    const cloudinaryId = req.file.filename && imageUrl.includes('cloudinary') ? req.file.filename : undefined;
+    // Some versions of multer-storage-cloudinary put the URL in 'path', others in 'secure_url'
+    const imageUrl = req.file.path || (req.file as any).secure_url || (req.file as any).url || `${req.protocol}://${req.get('host')}/uploads/${req.file.filename}`;
+    const cloudinaryId = (req.file.filename && (imageUrl.includes('cloudinary') || (req.file as any).public_id)) ? (req.file as any).public_id || req.file.filename : undefined;
 
     const image = new Image({
       name: name || req.file.originalname,
@@ -33,6 +34,7 @@ export const uploadImage = async (req: any, res: Response) => {
     await image.save();
     res.status(201).json(image);
   } catch (err: any) {
+    console.error('UploadImage error:', err);
     res.status(500).json({ message: err.message });
   }
 };
@@ -58,6 +60,7 @@ export const getImages = async (req: any, res: Response) => {
 
     res.json(formattedImages);
   } catch (err: any) {
+    console.error('GetImages error:', err);
     res.status(500).json({ message: err.message });
   }
 };
@@ -98,6 +101,7 @@ export const deleteImage = async (req: any, res: Response) => {
 
     res.json({ message: 'Image deleted successfully' });
   } catch (err: any) {
+    console.error('DeleteImage error:', err);
     res.status(500).json({ message: err.message });
   }
 };

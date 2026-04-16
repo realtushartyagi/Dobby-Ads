@@ -21,12 +21,14 @@ let storage;
 if (process.env.CLOUDINARY_CLOUD_NAME) {
   storage = new CloudinaryStorage({
     cloudinary: cloudinary,
-    params: async (req, file) => {
+    params: async (req : any, file : any) => {
       const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1e9);
+      const extension = path.extname(file.originalname).substring(1) || 'jpg';
       return {
         folder: 'dobby-drive',
         public_id: uniqueSuffix + '-' + path.parse(file.originalname).name,
-        format: path.extname(file.originalname).substring(1), // remove the dot
+        format: extension,
+        resource_type: 'auto'
       };
     },
   });
