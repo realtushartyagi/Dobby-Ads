@@ -127,6 +127,10 @@ async function main() {
     const app = express();
     let transport: SSEServerTransport | null = null;
 
+    app.get("/", (req, res) => {
+      res.json({ message: "Dobby Drive MCP Server (SSE) is running" });
+    });
+
     app.get("/sse", async (req, res) => {
       transport = new SSEServerTransport("/messages", res);
       await server.connect(transport);
