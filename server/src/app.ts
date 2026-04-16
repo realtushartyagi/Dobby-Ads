@@ -19,6 +19,10 @@ app.use(express.urlencoded({ extended: true }));
 // Serve static files from uploads
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
+app.get('/', (req, res) => {
+  res.json({ message: 'Dobby Ads API is running...' });
+});
+
 // Routes
 app.use('/api/auth', authRoutes);
 app.use('/api/folders', folderRoutes);
