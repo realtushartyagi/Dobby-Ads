@@ -1,3 +1,4 @@
+import { Request, Response } from 'express';
 import Image from '../models/Image.js';
 import fs from 'fs/promises';
 import path from 'path';
