@@ -7,10 +7,7 @@ import {
   Image as ImageIcon, 
   MoreVertical,
   Search,
-  Grid,
-  List as ListIcon,
   LogOut,
-  ArrowLeft,
   Trash2
 } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
